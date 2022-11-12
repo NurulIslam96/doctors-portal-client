@@ -33,14 +33,14 @@ const Banner = () => {
   return (
     <div>
       <div
-        className="hero h-[650px] "
+        className="hero h-[650px]"
         style={{
           backgroundImage: `url(${bannerBg})`,
           boxShadow: "0 0 8px 8px white inset",
         }}
       >
         <div className="hero-content flex-col lg:flex-row-reverse">
-          <img src={chair} alt="" className="w-1/2 rounded-lg shadow-2xl" />
+          <img src={chair} alt="" className="md:w-1/2 w-full rounded-lg shadow-2xl" />
           <div>
             <h1 className="text-5xl font-bold">Your New Smile Starts Here</h1>
             <p className="py-6">
@@ -52,7 +52,7 @@ const Banner = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-between gap-6 backdrop-blur-xl">
+      <div className="flex justify-between md:flex-row flex-col gap-6 backdrop-blur-xl">
         {bannerItems.map((item) => (
           <BannerItems key={item.title} item={item}></BannerItems>
         ))}
