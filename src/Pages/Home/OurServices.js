@@ -27,7 +27,7 @@ const OurServices = () => {
   return (
     <div>
       <div className="text-center">
-        <h4 className="text-xl font-bold text-primary">OUR SERVICES</h4>
+        <h4 className="text-xl font-bold text-secondary">OUR SERVICES</h4>
         <h2 className="text-4xl">Services We Provide</h2>
       </div>
       <div className="flex justify-between md:flex-row flex-col mt-14 gap-8">
@@ -35,7 +35,7 @@ const OurServices = () => {
           <ServiceCard key={service.id} service={service}></ServiceCard>
         ))}
       </div>
-      <div className="hero my-28">
+      <div className="hero my-40">
         <div className="grid md:grid-cols-2 grid-cols-1 items-center">
           <div className="flex justify-center mb-14">
             <img
