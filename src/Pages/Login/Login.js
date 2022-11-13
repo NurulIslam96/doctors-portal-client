@@ -3,11 +3,15 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const { register, handleSubmit , formState: { errors }} = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const handleLogin = (data) => {
     console.log(data);
   };
-  
+
   return (
     <div className="h-[800px] md:mx-0 mx-2 flex justify-center items-center">
       <div className="w-full lg:w-[385px] p-8 space-y-3 rounded-xl shadow">
@@ -17,28 +21,38 @@ const Login = () => {
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-1 text-sm">
-            <label className="block text-gray-800">
-              Email
-            </label>
+            <label className="block text-gray-800">Email</label>
             <input
               type="email"
               placeholder="email"
               {...register("email", { required: "Email Address is Required" })}
               className="w-full px-4 py-3 rounded-md border focus:border-violet-400"
             />
-            {errors.email && <p role="alert" className="text-red-500">{errors.email?.message}</p>}
+            {errors.email && (
+              <p role="alert" className="text-red-500">
+                {errors.email?.message}
+              </p>
+            )}
           </div>
           <div className="space-y-1 text-sm">
-            <label className="block text-gray-800">
-              Password
-            </label>
+            <label className="block text-gray-800">Password</label>
             <input
               type="password"
               placeholder="Password"
-              {...register("password", { required: "Password is Required" })}
+              {...register("password", {
+                required: "Password is Required",
+                minLength: {
+                  value: 8,
+                  message: "Password must be 8 characters or longer",
+                },
+              })}
               className="w-full px-4 py-3 rounded-md border focus:border-violet-400"
             />
-            {errors.password && <p role="alert" className="text-red-500">{errors.password?.message}</p>}
+            {errors.password && (
+              <p role="alert" className="text-red-500">
+                {errors.password?.message}
+              </p>
+            )}
             <Link>
               <p className="mt-2 text-xs">Forgot Password?</p>
             </Link>
