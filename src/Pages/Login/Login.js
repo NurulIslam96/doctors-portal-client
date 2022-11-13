@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit , formState: { errors }} = useForm();
   const handleLogin = (data) => {
     console.log(data);
   };
@@ -17,26 +17,28 @@ const Login = () => {
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-1 text-sm">
-            <label for="username" className="block text-gray-800">
+            <label className="block text-gray-800">
               Email
             </label>
             <input
               type="email"
               placeholder="email"
-              {...register("email", { required: true })}
+              {...register("email", { required: "Email Address is Required" })}
               className="w-full px-4 py-3 rounded-md border focus:border-violet-400"
             />
+            {errors.email && <p role="alert" className="text-red-500">{errors.email?.message}</p>}
           </div>
           <div className="space-y-1 text-sm">
-            <label for="password" className="block text-gray-800">
+            <label className="block text-gray-800">
               Password
             </label>
             <input
               type="password"
               placeholder="Password"
-              {...register("password", { required: true })}
+              {...register("password", { required: "Password is Required" })}
               className="w-full px-4 py-3 rounded-md border focus:border-violet-400"
             />
+            {errors.password && <p role="alert" className="text-red-500">{errors.password?.message}</p>}
             <Link>
               <p className="mt-2 text-xs">Forgot Password?</p>
             </Link>
@@ -51,7 +53,7 @@ const Login = () => {
           <small>
             New to Doctors Portal?
             <span className="text-secondary">
-              <Link> Create new account</Link>
+              <Link to="/signup"> Create new account</Link>
             </span>
           </small>
         </div>
