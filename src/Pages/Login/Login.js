@@ -1,19 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/Authprovider";
+import ResetPassword from "./ResetPassword";
 
 const Login = () => {
+  const { signIn, googleSignIn } = useContext(AuthContext);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const handleLogin = (data) => {
-    console.log(data);
+    signIn(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((err) => console.log(err));
   };
+
+  const handGoogleSignIn = () => {
+    googleSignIn()
+      .then(result => {
+        const user = result.user;
+        console.log(user)
+      })
+      .catch((err) => console.log(err));
+  };
+
 
   return (
     <div className="h-[800px] md:mx-0 mx-2 flex justify-center items-center">
+        <ResetPassword></ResetPassword>
       <div className="w-full lg:w-[385px] p-8 space-y-3 rounded-xl shadow">
         <h1 className="text-2xl text-center">Login</h1>
         <form
@@ -53,9 +74,9 @@ const Login = () => {
                 {errors.password?.message}
               </p>
             )}
-            <Link>
-              <p className="mt-2 text-xs">Forgot Password?</p>
-            </Link>
+            <label htmlFor="reset-password" className="mt-2 text-xs">
+              Forgot Password?
+            </label>
           </div>
           <input
             type={"submit"}
@@ -76,7 +97,8 @@ const Login = () => {
           type={"submit"}
           className="block w-full p-3 text-center rounded-md border hover:bg-slate-200 text-lg cursor-pointer"
           value={"Continue with Google"}
-        />
+          onClick={handGoogleSignIn}
+          />
       </div>
     </div>
   );
