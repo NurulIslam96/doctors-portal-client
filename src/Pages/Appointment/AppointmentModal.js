@@ -14,15 +14,15 @@ const AppointmentModal = ({ appointmentOpt, selectDate }) => {
           >
             ✕
           </label>
-          <h3 className="text-lg font-bold mb-7">{name}</h3>
+          <h3 className="text-lg font-bold mb-7 text-slate-800">{name}</h3>
           <form>
             <input
               type="text"
               value={format(selectDate, "PP")}
               disabled
-              className="input input-bordered w-full my-3"
+              className="input input-bordered w-full my-3 text-black"
             />
-            <select className="select select-bordered w-full my-3">
+            <select className="select select-bordered w-full my-3 text-slate-800">
               {
                 slots?.map(slot => <option value={slot} key={slot}>{slot}</option>)
               }

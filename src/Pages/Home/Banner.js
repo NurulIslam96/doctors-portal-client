@@ -33,11 +33,7 @@ const Banner = () => {
   return (
     <div>
       <div
-        className="hero h-[650px]"
-        style={{
-          backgroundImage: `url(${bannerBg})`,
-          boxShadow: "0 0 8px 8px white inset",
-        }}
+        className="hero h-[650px] banner" 
       >
         <div className="hero-content flex-col lg:flex-row-reverse">
           <img src={chair} alt="" className="md:w-1/2 w-full rounded-lg shadow-2xl" />

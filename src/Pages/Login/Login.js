@@ -42,7 +42,7 @@ const Login = () => {
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-1 text-sm">
-            <label className="block text-gray-800">Email</label>
+            <label className="block">Email</label>
             <input
               type="email"
               placeholder="email"
@@ -56,7 +56,7 @@ const Login = () => {
             )}
           </div>
           <div className="space-y-1 text-sm">
-            <label className="block text-gray-800">Password</label>
+            <label className="block">Password</label>
             <input
               type="password"
               placeholder="Password"
@@ -74,7 +74,7 @@ const Login = () => {
                 {errors.password?.message}
               </p>
             )}
-            <label htmlFor="reset-password" className="mt-2 text-xs">
+            <label htmlFor="reset-password" className="mt-2 text-xs cursor-pointer hover:text-secondary">
               Forgot Password?
             </label>
           </div>

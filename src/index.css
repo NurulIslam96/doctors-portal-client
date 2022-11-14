@@ -11,6 +11,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.dark-mode {
+  background-color: #242526;
+  color: white;
+}
+
+.dark-mode .navbar{
+  background-color : #242526;
+}
+
+.dark-mode .banner{
+  background-image: url(../src/assets/images/bg.png);
+  box-shadow: 0 0 100px 100px inset #242526;
+}
+
+.banner{
+  background-image: url(../src/assets/images/bg.png);
+  box-shadow: 0 0 50px 50px inset white;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

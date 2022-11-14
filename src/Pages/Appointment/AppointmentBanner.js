@@ -7,11 +7,7 @@ const AppointmentBanner = ({selectDate, setSelectDate}) => {
   return (
     <div>
       <div
-        className="hero h-[650px]"
-        style={{
-          backgroundImage: `url(${bannerBg})`,
-          boxShadow: "0 0 100px 100px white inset",
-        }}
+        className="hero h-[650px] banner"
       >
         <div className="hero-content flex-col gap-10 lg:flex-row-reverse">
           <img

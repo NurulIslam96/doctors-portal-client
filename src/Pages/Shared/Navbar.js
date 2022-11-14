@@ -1,14 +1,18 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ThemeContext } from "../../App";
 import { AuthContext } from "../../contexts/Authprovider";
 
 const Navbar = () => {
-  const { user , logOut} = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
+  const { toggleTheme } = useContext(ThemeContext);
+  
   const handleLogOut = () => {
     logOut()
-    .then(()=>{})
-    .catch(err => console.log(err))
-  }
+      .then(() => {})
+      .catch((err) => console.log(err));
+  };
+
   const menuItems = (
     <React.Fragment>
       <li>
@@ -28,7 +32,9 @@ const Navbar = () => {
       </li>
       {user ? (
         <li>
-          <button onClick={handleLogOut} className="bg-slate-600 text-white">Logout</button>
+          <button onClick={handleLogOut} className="bg-slate-600 text-white">
+            Logout
+          </button>
         </li>
       ) : (
         <li>
@@ -39,7 +45,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="navbar bg-base-100 flex justify-between">
+    <div className="navbar bg-base-100 flex justify-between" >
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -71,6 +77,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal p-0">{menuItems}</ul>
+        <input type="checkbox" className="toggle toggle-success" onClick={toggleTheme}/>
       </div>
     </div>
   );
