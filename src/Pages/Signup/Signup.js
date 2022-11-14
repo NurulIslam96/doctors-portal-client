@@ -9,12 +9,14 @@ const Signup = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm();
   const handleSignUp = (data) => {
     createUser(data.email, data.password)
     .then(result =>{
         const user = result.user;
         console.log(user)
+        reset()
     })
     .catch(err => console.log(err))
   };
