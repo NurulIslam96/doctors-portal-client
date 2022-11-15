@@ -1,17 +1,17 @@
+import { useQuery } from "@tanstack/react-query";
 import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AppointmentCard from "./AppointmentCard";
 import AppointmentModal from "./AppointmentModal";
 
 const BookAppointment = ({ selectDate }) => {
-  const [appointments, setAppointments] = useState([]);
   const [appointmentOpt, setAppointmentOpt] = useState({});
-
-  useEffect(() => {
-    fetch("data-appointment.json")
-      .then((res) => res.json())
-      .then((data) => setAppointments(data));
-  }, []);
+  
+  const {data : appointments = []} = useQuery({
+    queryKey: 'appointments',
+    queryFn: () => fetch("http://localhost:5000/appointments")
+    .then(res => res.json())
+  })
 
   return (
     <div>

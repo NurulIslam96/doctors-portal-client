@@ -1,6 +1,5 @@
 // import React, { useState } from "react";
 import { DayPicker } from "react-day-picker";
-import bannerBg from "../../assets/images/bg.png";
 import chair from "../../assets/images/chair.png";
 
 const AppointmentBanner = ({selectDate, setSelectDate}) => {

@@ -5,15 +5,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "react-day-picker/dist/style.css";
 import Authprovider from "./contexts/Authprovider";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+const queryClient = new QueryClient();
 root.render(
   <React.StrictMode>
-    <div>
-    <Authprovider>
-      <App />
-    </Authprovider>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <Authprovider>
+        <App />
+      </Authprovider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
