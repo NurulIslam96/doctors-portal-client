@@ -21,6 +21,8 @@ const AppointmentBanner = ({selectDate, setSelectDate}) => {
               onSelect={setSelectDate}
             ></DayPicker>
           </div>
+          <div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,24 +1,56 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/Authprovider";
+import useToken from "../../hooks/useToken";
 
 const Signup = () => {
-    const {createUser} = useContext(AuthContext);
+  const { createUser, updateUser } = useContext(AuthContext);
+  const [createdEmail , setCreatedEmail] = useState('')
+  const [token] = useToken(createdEmail)
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
+
+ useEffect(()=>{
+  if(token){
+    navigate('/')
+  }
+ },[token])
+
   const handleSignUp = (data) => {
+    const userInfo = { displayName: data.name };
     createUser(data.email, data.password)
-    .then(result =>{
+      .then((result) => {
         const user = result.user;
-        console.log(user)
-        reset()
+        updateUser(userInfo)
+        .then(() => {
+          saveUserInfo(data.name, data.email);
+          toast.success("User Created Succesfully");
+        });
+        reset();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const saveUserInfo = (name, email) => {
+    const user = { name, email };
+    fetch("http://localhost:5000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
     })
-    .catch(err => console.log(err))
+      .then((res) => res.json())
+      .then((data) => {
+        setCreatedEmail(email)
+      });
   };
 
   return (
@@ -30,7 +62,7 @@ const Signup = () => {
           className="space-y-6 ng-untouched ng-pristine ng-valid"
         >
           <div className="space-y-1 text-sm">
-            <label className="block text-gray-800">Full Name</label>
+            <label className="block">Full Name</label>
             <input
               type="text"
               placeholder="name"
@@ -44,7 +76,7 @@ const Signup = () => {
             )}
           </div>
           <div className="space-y-1 text-sm">
-            <label className="block text-gray-800">Email</label>
+            <label className="block">Email</label>
             <input
               type="email"
               placeholder="email"
@@ -58,7 +90,7 @@ const Signup = () => {
             )}
           </div>
           <div className="space-y-1 text-sm">
-            <label className="block text-gray-800">Password</label>
+            <label className="block">Password</label>
             <input
               type="password"
               placeholder="Password"

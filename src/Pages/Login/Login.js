@@ -1,12 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/Authprovider";
+import useToken from "../../hooks/useToken";
 import ResetPassword from "./ResetPassword";
 
 const Login = () => {
   const { signIn, googleSignIn } = useContext(AuthContext);
-
+  const [loginEmail, setLoginEmail] = useState("");
+  const [token] = useToken(loginEmail);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location?.state?.from?.path || "/";
+  useEffect(()=>{
+    if(token){
+      navigate(from, {replace: true})
+    }
+   },[token])
+  
   const {
     register,
     handleSubmit,
@@ -17,24 +29,36 @@ const Login = () => {
     signIn(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        setLoginEmail(data.email)
       })
       .catch((err) => console.log(err));
   };
 
   const handGoogleSignIn = () => {
     googleSignIn()
-      .then(result => {
+      .then((result) => {
         const user = result.user;
-        console.log(user)
+        if(user){
+          fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            name: user.displayName,
+            email: user.email,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => setLoginEmail(user.email));
+        }
       })
       .catch((err) => console.log(err));
   };
 
-
   return (
     <div className="h-[800px] md:mx-0 mx-2 flex justify-center items-center">
-        <ResetPassword></ResetPassword>
+      <ResetPassword></ResetPassword>
       <div className="w-full lg:w-[385px] p-8 space-y-3 rounded-xl shadow">
         <h1 className="text-2xl text-center">Login</h1>
         <form
@@ -74,7 +98,10 @@ const Login = () => {
                 {errors.password?.message}
               </p>
             )}
-            <label htmlFor="reset-password" className="mt-2 text-xs cursor-pointer hover:text-secondary">
+            <label
+              htmlFor="reset-password"
+              className="mt-2 text-xs cursor-pointer hover:text-secondary"
+            >
               Forgot Password?
             </label>
           </div>
@@ -98,7 +125,7 @@ const Login = () => {
           className="block w-full p-3 text-center rounded-md border hover:bg-slate-200 text-lg cursor-pointer"
           value={"Continue with Google"}
           onClick={handGoogleSignIn}
-          />
+        />
       </div>
     </div>
   );
