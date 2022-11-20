@@ -10,7 +10,11 @@ const AllUsers = () => {
     const {data: users = [], refetch} = useQuery({
         queryKey: ["users"],
         queryFn: async ()=>{
-            const res = await fetch(url)
+            const res = await fetch(url,{
+              headers:{
+                authorization: `bearer ${localStorage.getItem("accessToken")}`
+            }
+            })
             const data = await res.json()
             return data
         }
@@ -31,11 +35,11 @@ const AllUsers = () => {
     }
 
   return (
-    <div className="overflow-x-auto w-full text-black">
+    <div className="overflow-x-auto w-full">
       <div className="md:ml-14 mt-14 mb-6 font-bold">
         <h2 className="text-2xl">All Users: {users.length}</h2>
       </div>
-      <div className="md:mx-14">
+      <div className="md:mx-14 text-black">
         <table className="table w-full">
           <thead>
             <tr>
@@ -53,7 +57,7 @@ const AllUsers = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user?.role === 'admin' && <button onClick={()=>handleMakeAdmin(user._id)} className="btn btn-xs btn-primary">Make Admin</button>}</td>
-                <td>{!isAdmin && <button className="btn btn-xs btn-error">Delete</button>}</td>
+                <td>{isAdmin && <button className="btn btn-xs btn-error">Delete</button>}</td>
               </tr>
             ))}
           </tbody>

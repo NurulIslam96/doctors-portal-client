@@ -5,7 +5,7 @@ import { AuthContext } from "../../contexts/Authprovider";
 
 const AppointmentModal = ({ appointmentOpt, selectDate,refetch }) => {
   const { user } = useContext(AuthContext);
-  const { name, slots } = appointmentOpt;
+  const { name, slots, price } = appointmentOpt;
   const date = format(selectDate, 'PP');
 
   const handleBooking = e => {
@@ -21,7 +21,8 @@ const AppointmentModal = ({ appointmentOpt, selectDate,refetch }) => {
       patient: patientName,
       email,
       phone,
-      slot
+      slot,
+      price
     }
     fetch("http://localhost:5000/bookings", {
       method: "POST",

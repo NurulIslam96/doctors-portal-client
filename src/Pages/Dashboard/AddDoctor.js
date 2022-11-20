@@ -62,7 +62,7 @@ const AddDoctor = () => {
 
   return (
     <>
-      <div className="md:ml-14 mt-14 mb-6 font-bold text-black">
+      <div className="md:ml-14 mt-14 mb-6 font-bold">
         <h2 className="text-2xl">Add a New Doctor</h2>
       </div>
       <div className="w-full lg:w-[540px] lg:h-[653px] p-8 space-y-3 rounded-xl shadow bg-white md:ml-14 md:mt-5">

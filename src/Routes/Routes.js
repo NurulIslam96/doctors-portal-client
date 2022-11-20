@@ -8,6 +8,8 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import ManageDoctors from "../Pages/Dashboard/ManageDoctors";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
+import Payment from "../Pages/Payment/Payment";
+import DisplayError from "../Pages/Shared/DisplayError";
 import Signup from "../Pages/Signup/Signup";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
@@ -16,6 +18,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement: <DisplayError></DisplayError>,
     children: [
       {
         path: "/",
@@ -56,6 +59,11 @@ export const router = createBrowserRouter([
           {
             path: "/dashboard/managedoctors",
             element: <AdminRoute><ManageDoctors></ManageDoctors></AdminRoute>
+          },
+          {
+            path: "/dashboard/payment/:id",
+            element: <AdminRoute><Payment></Payment></AdminRoute>,
+            loader:({params})=>fetch(`http://localhost:5000/payment/${params.id}`)
           },
         ]
       }

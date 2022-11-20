@@ -42,11 +42,11 @@ const ManageDoctors = () => {
   };
 
   return (
-    <div className="overflow-x-auto w-full text-black">
+    <div className="overflow-x-auto w-full">
       <div className="md:ml-14 mt-14 mb-6 font-bold">
         <h2 className="text-2xl">Manage Doctors: {doctors.length}</h2>
       </div>
-      <div className="md:mx-14">
+      <div className="md:mx-14 text-black">
         <table className="table w-full">
           <thead>
             <tr>
